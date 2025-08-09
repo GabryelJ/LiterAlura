@@ -1,4 +1,4 @@
-package dev.gabryel.LiterAlura.service;
+package dev.gabryel.literalura.service;
 
 
 import org.springframework.stereotype.Service;
@@ -31,5 +31,5 @@ public class ConsumoAPI {
         String json = resposta.body();
         return json;
     }
-    
+
 }

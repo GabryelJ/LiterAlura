@@ -1,4 +1,4 @@
-package dev.gabryel.LiterAlura.main;
+package dev.gabryel.literalura.main;
 
 import org.springframework.stereotype.Component;
 

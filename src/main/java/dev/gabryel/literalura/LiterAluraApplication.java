@@ -1,6 +1,6 @@
-package dev.gabryel.LiterAlura;
+package dev.gabryel.literalura;
 
-import dev.gabryel.LiterAlura.main.Main;
+import dev.gabryel.literalura.main.Main;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

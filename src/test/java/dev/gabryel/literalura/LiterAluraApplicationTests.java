@@ -1,4 +1,4 @@
-package dev.gabryel.LiterAlura;
+package dev.gabryel.literalura;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
