@@ -13,8 +13,11 @@ import java.net.http.HttpResponse;
 @Service
 public class ConsumoAPI {
 
+    private final HttpClient cliente = HttpClient.newBuilder()
+            .followRedirects(HttpClient.Redirect.ALWAYS)
+            .build();
+
     public String buscarDados(String address) {
-        HttpClient cliente = HttpClient.newHttpClient();
         HttpRequest requisicao = HttpRequest.newBuilder()
                 .uri(URI.create(address))
                 .build();
@@ -22,14 +25,12 @@ public class ConsumoAPI {
         try {
             resposta = cliente
                     .send(requisicao, HttpResponse.BodyHandlers.ofString());
+            return resposta.body();
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-        String json = resposta.body();
-        return json;
     }
 
 }

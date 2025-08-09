@@ -1,14 +1,22 @@
 package dev.gabryel.literalura.main;
 
+import dev.gabryel.literalura.service.ConsumoAPI;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Main {
 
+    private ConsumoAPI consumoAPI;
+
+    public Main(ConsumoAPI consumoAPI) {
+        this.consumoAPI = consumoAPI;
+    }
+
     public void exibirMenu() {
         var menu = """
                 Escolha o número da sua opção: 
                 
+                teste - /books
                 1 - Buscar livro pelo titulo;
                 2 - Listar livros registrados;
                 3 - Listar autores registrados;
@@ -19,5 +27,6 @@ public class Main {
                 """;
 
         System.out.println(menu);
+
     }
 }
