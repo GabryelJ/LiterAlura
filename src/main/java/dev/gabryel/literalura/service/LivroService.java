@@ -100,4 +100,8 @@ public class LivroService {
 
         System.out.println("Livro não encontrado na API.");
     }
+
+    public List<Livro> buscarLivrosCadastrados(){
+        return livroRepository.findAll();
+    }
 }

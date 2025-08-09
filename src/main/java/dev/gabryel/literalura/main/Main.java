@@ -18,6 +18,7 @@ public class Main {
     public void menuInicial() {
         var option = -1;
         String menu = """
+                \n
                 Escolha o número da sua opção:
                                 
                 1 - Buscar livro pelo titulo;
@@ -27,6 +28,7 @@ public class Main {
                 5 - Listar livros em um determinado idioma;
                                 
                 0 - Sair.
+                \n
                 """;
 
         while (option != 0) {
@@ -66,7 +68,8 @@ public class Main {
     }
 
     private void menuListarLivrosRegistrados(){
-        System.out.println("Não implementado");
+        System.out.println("Livros registrados no banco de dados: ");
+        livroService.buscarLivrosCadastrados().forEach(System.out::println);
     }
 
     private void menuListarAutoresRegistrados(){
