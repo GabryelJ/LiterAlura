@@ -17,4 +17,8 @@ public class AutorService {
     public List<Autor> buscarAutoresCadastrados(){
         return autorRepository.findAll();
     }
+
+    public List<Autor> buscarAutoresVivosNoAno(Integer ano){
+        return autorRepository.findAutoresVivosPorAno(ano);
+    }
 }

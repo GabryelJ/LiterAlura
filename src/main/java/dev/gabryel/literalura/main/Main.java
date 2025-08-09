@@ -84,7 +84,7 @@ public class Main {
         System.out.println("Para qual ano deseja verificar quais autores estavam vivos?");
         Integer anoAutoresVivos = entrada.nextInt();
         entrada.nextLine();
-        System.out.println("Não implementado");
+        autorService.buscarAutoresVivosNoAno(anoAutoresVivos).forEach(System.out::println);
     }
 
     private void menuListarLivrosDeUmIdioma(){
