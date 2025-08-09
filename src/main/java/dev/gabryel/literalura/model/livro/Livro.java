@@ -17,13 +17,16 @@ public class Livro {
     @Column(unique = true)
     private String titulo;
 
-    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinTable(name = "livros_autores",
             joinColumns = @JoinColumn(name = "livro_id"),
             inverseJoinColumns = @JoinColumn(name = "autor_id"))
     private List<Autor> autores;
 
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "livro_idiomas", joinColumns = @JoinColumn(name = "livro_id"))
+    @Column(name = "idioma")
     private List<Idioma> idiomas;
 
     private Long numeroDownloads;

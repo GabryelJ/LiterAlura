@@ -12,6 +12,7 @@ import dev.gabryel.literalura.service.convertedados.ConversorDeDados;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -103,5 +104,10 @@ public class LivroService {
 
     public List<Livro> buscarLivrosCadastrados(){
         return livroRepository.findAll();
+    }
+
+    public List<Livro> buscarLivrosDeDeterminadoIdioma(String abreviacaoIdioma){
+        Idioma eIdioma = Idioma.fromAbreviacao(abreviacaoIdioma);
+        return livroRepository.findByIdiomasContaining(eIdioma);
     }
 }

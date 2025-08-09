@@ -89,16 +89,21 @@ public class Main {
 
     private void menuListarLivrosDeUmIdioma(){
         String menu = """
-                    Insira o idioma em que deseja realizar a busca:
-                    
+                    Idiomas disponíveis:
+                    \n
                     es - Espanhol;
-                    en - Inglês; 
+                    en - Inglês;
                     fr - Francês;
                     pt - Português.
+                    \n
                 """;
-        System.out.println(menu);
 
+
+        System.out.println(menu);
+        System.out.println("Insira o idioma em que deseja realizar a busca:");
         String idioma = entrada.nextLine();
-        System.out.println("Não implementado");
+
+        livroService.buscarLivrosDeDeterminadoIdioma(idioma).forEach(System.out::println);
+
     }
 }
