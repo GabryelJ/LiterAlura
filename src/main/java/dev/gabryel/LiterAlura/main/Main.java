@@ -16,6 +16,8 @@ public class Main {
                 5 - Listar livros em um determinado idioma;
                 
                 0 - Sair.
-                """
+                """;
+
+        System.out.println(menu);
     }
 }
