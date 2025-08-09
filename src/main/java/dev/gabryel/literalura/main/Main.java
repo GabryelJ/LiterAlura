@@ -1,5 +1,6 @@
 package dev.gabryel.literalura.main;
 
+import dev.gabryel.literalura.service.AutorService;
 import dev.gabryel.literalura.service.LivroService;
 import org.springframework.stereotype.Component;
 
@@ -10,9 +11,11 @@ public class Main {
 
     private final Scanner entrada = new Scanner(System.in);
     private final LivroService livroService;
+    private final AutorService autorService;
 
-    public Main(LivroService livroService) {
+    public Main(LivroService livroService, AutorService autorService) {
         this.livroService = livroService;
+        this.autorService = autorService;
     }
 
     public void menuInicial() {
@@ -73,7 +76,8 @@ public class Main {
     }
 
     private void menuListarAutoresRegistrados(){
-        System.out.println("Não implementado");
+        System.out.println("Autores registrados no banco de dados: ");
+        autorService.buscarAutoresCadastrados().forEach(System.out::println);
     }
 
     private void menuListarAutoresVivosNoAno(){
@@ -85,11 +89,11 @@ public class Main {
 
     private void menuListarLivrosDeUmIdioma(){
         String menu = """
-                    Insira o idioma em que deseja realizar a busca
+                    Insira o idioma em que deseja realizar a busca:
                     
                     es - Espanhol;
-                    en - Ingles; 
-                    fr - Frances;
+                    en - Inglês; 
+                    fr - Francês;
                     pt - Português.
                 """;
         System.out.println(menu);

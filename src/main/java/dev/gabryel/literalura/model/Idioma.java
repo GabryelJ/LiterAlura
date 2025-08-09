@@ -1,14 +1,21 @@
 package dev.gabryel.literalura.model;
 
 public enum Idioma {
-    INGLES("en"),
-    PORTUGUES("pt"),
-    FRANCES("fr"),
-    ESPANHOL("es"),
+    INGLES("inglês", "en"),
+    PORTUGUES("português", "pt"),
+    FRANCES("francês", "fr"),
+    ESPANHOL("espanhol", "es"),
     OUTRO("outro");
 
+    private String idioma;
     private String abreviacaoIdioma;
-    Idioma(String abreviacaoIdioma) {
+
+    Idioma(String idioma, String abreviacaoIdioma) {
+        this.idioma = idioma;
+        this.abreviacaoIdioma = abreviacaoIdioma;
+    }
+
+    Idioma(String idioma ) {
         this.abreviacaoIdioma = abreviacaoIdioma;
     }
 
@@ -25,4 +32,7 @@ public enum Idioma {
         return abreviacaoIdioma;
     }
 
+    public String getIdioma() {
+        return idioma;
+    }
 }

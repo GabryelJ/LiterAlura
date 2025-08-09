@@ -5,6 +5,7 @@ import dev.gabryel.literalura.model.autor.Autor;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name="livros")
@@ -83,9 +84,18 @@ public class Livro {
 
     @Override
     public String toString() {
+
+        String autoresFormatados = autores.stream()
+                .map(Autor::getNome)
+                .collect(Collectors.joining(", "));
+
+        String idiomasFormatados = idiomas.stream()
+                .map(Idioma::getIdioma)
+                .collect(Collectors.joining(", "));
+
         return "Livro de titulo : " + titulo +
-                " dos autores: " + autores +
-                " disponível nos idiomas: " + idiomas +
-                " com o numero de downloads: " + numeroDownloads + '.';
+                ", dos autores: " + autoresFormatados +
+                ", disponível no(s) idioma(s): " + idiomasFormatados +
+                ", com o numero de downloads: " + numeroDownloads + '.';
     }
 }
