@@ -1,32 +1,97 @@
 package dev.gabryel.literalura.main;
 
-import dev.gabryel.literalura.service.ConsumoAPI;
+import dev.gabryel.literalura.service.LivroService;
 import org.springframework.stereotype.Component;
+
+import java.util.Scanner;
 
 @Component
 public class Main {
 
-    private ConsumoAPI consumoAPI;
+    private final Scanner entrada = new Scanner(System.in);
+    private final LivroService livroService;
 
-    public Main(ConsumoAPI consumoAPI) {
-        this.consumoAPI = consumoAPI;
+    public Main(LivroService livroService) {
+        this.livroService = livroService;
     }
 
-    public void exibirMenu() {
-        var menu = """
-                Escolha o número da sua opção: 
-                
-                teste - /books
+    public void menuInicial() {
+        var option = -1;
+        String menu = """
+                Escolha o número da sua opção:
+                                
                 1 - Buscar livro pelo titulo;
                 2 - Listar livros registrados;
                 3 - Listar autores registrados;
                 4 - Listar autores vivos em um dado ano;
                 5 - Listar livros em um determinado idioma;
-                
+                                
                 0 - Sair.
                 """;
 
+        while (option != 0) {
+            System.out.println(menu);
+            option = entrada.nextInt();
+            entrada.nextLine();
+
+            switch (option) {
+                case 1:
+                    menuBuscarLivroPorTitulo();
+                    break;
+                case 2:
+                    menuListarLivrosRegistrados();
+                    break;
+                case 3:
+                    menuListarAutoresRegistrados();
+                    break;
+                case 4:
+                    menuListarAutoresVivosNoAno();
+                    break;
+                case 5:
+                    menuListarLivrosDeUmIdioma();
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida");
+            }
+        }
+    }
+
+    private void menuBuscarLivroPorTitulo(){
+        System.out.println("Insira o titulo do livro que deseja buscar: ");
+        String titulo = entrada.nextLine();
+        livroService.cadastraLivro(titulo);
+    }
+
+    private void menuListarLivrosRegistrados(){
+        System.out.println("Não implementado");
+    }
+
+    private void menuListarAutoresRegistrados(){
+        System.out.println("Não implementado");
+    }
+
+    private void menuListarAutoresVivosNoAno(){
+        System.out.println("Para qual ano deseja verificar quais autores estavam vivos?");
+        Integer anoAutoresVivos = entrada.nextInt();
+        entrada.nextLine();
+        System.out.println("Não implementado");
+    }
+
+    private void menuListarLivrosDeUmIdioma(){
+        String menu = """
+                    Insira o idioma em que deseja realizar a busca
+                    
+                    es - Espanhol;
+                    en - Ingles; 
+                    fr - Frances;
+                    pt - Português.
+                """;
         System.out.println(menu);
 
+        String idioma = entrada.nextLine();
+        System.out.println("Não implementado");
     }
 }

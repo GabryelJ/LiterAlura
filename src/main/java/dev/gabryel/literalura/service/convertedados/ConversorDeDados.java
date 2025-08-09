@@ -9,7 +9,7 @@ public class ConversorDeDados implements IConversorDeDados {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public <T> T getDados(String json, Class<T> tClass) {
+    public <T> T obterDados(String json, Class<T> tClass) {
         try {
             return mapper.readValue(json, tClass);
         } catch (JsonProcessingException e) {
