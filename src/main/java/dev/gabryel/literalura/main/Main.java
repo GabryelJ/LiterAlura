@@ -22,7 +22,7 @@ public class Main {
         var option = -1;
         String menu = """
                 \n
-                Escolha o número da sua opção:
+                Opções disponíveis:
                                 
                 1 - Buscar livro pelo titulo;
                 2 - Listar livros registrados;
@@ -31,11 +31,11 @@ public class Main {
                 5 - Listar livros em um determinado idioma;
                                 
                 0 - Sair.
-                \n
-                """;
+               
+                Escolha o numero da opção desejada: """;
 
         while (option != 0) {
-            System.out.println(menu);
+            System.out.printf(menu);
             option = entrada.nextInt();
             entrada.nextLine();
 
@@ -95,12 +95,10 @@ public class Main {
                     en - Inglês;
                     fr - Francês;
                     pt - Português.
-                    \n
                 """;
 
-
-        System.out.println(menu);
-        System.out.println("Insira o idioma em que deseja realizar a busca:");
+        System.out.printf(menu);
+        System.out.println("Insira a sigla do idioma em que deseja realizar a busca:");
         String idioma = entrada.nextLine();
 
         livroService.buscarLivrosDeDeterminadoIdioma(idioma).forEach(System.out::println);

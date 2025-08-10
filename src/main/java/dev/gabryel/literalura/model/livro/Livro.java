@@ -4,9 +4,6 @@ import dev.gabryel.literalura.model.Idioma;
 import dev.gabryel.literalura.model.autor.Autor;
 import jakarta.persistence.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Entity
 @Table(name="livros")
 public class Livro {
@@ -17,19 +14,14 @@ public class Livro {
     @Column(unique = true)
     private String titulo;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
-    @JoinTable(name = "livros_autores",
-            joinColumns = @JoinColumn(name = "livro_id"),
-            inverseJoinColumns = @JoinColumn(name = "autor_id"))
-    private List<Autor> autores;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    private Autor autor;
 
-    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "livro_idiomas", joinColumns = @JoinColumn(name = "livro_id"))
-    @Column(name = "idioma")
-    private List<Idioma> idiomas;
+    private Idioma idioma;
 
     private Long numeroDownloads;
+
 
     public Livro() {
     }
@@ -38,10 +30,10 @@ public class Livro {
         this.titulo = titulo;
     }
 
-    public Livro(String titulo, List<Autor> autores, List<Idioma> idiomas, Long numeroDownloads) {
+    public Livro(String titulo, Autor autor, Idioma idioma, Long numeroDownloads) {
         this.titulo = titulo;
-        this.autores = autores;
-        this.idiomas = idiomas;
+        this.autor = autor;
+        this.idioma = idioma;
         this.numeroDownloads = numeroDownloads;
     }
 
@@ -61,20 +53,20 @@ public class Livro {
         this.titulo = titulo;
     }
 
-    public List<Autor> getAutores() {
-        return autores;
+    public Autor getAutor() {
+        return autor;
     }
 
-    public void setAutores(List<Autor> autores) {
-        this.autores = autores;
+    public void setAutor(Autor autor) {
+        this.autor = autor;
     }
 
-    public List<Idioma> getIdiomas() {
-        return idiomas;
+    public Idioma getIdioma() {
+        return idioma;
     }
 
-    public void setIdiomas(List<Idioma> idiomas) {
-        this.idiomas = idiomas;
+    public void setIdioma(Idioma idioma) {
+        this.idioma = idioma;
     }
 
     public Long getNumeroDownloads() {
@@ -87,18 +79,9 @@ public class Livro {
 
     @Override
     public String toString() {
-
-        String autoresFormatados = autores.stream()
-                .map(Autor::getNome)
-                .collect(Collectors.joining(", "));
-
-        String idiomasFormatados = idiomas.stream()
-                .map(Idioma::getIdioma)
-                .collect(Collectors.joining(", "));
-
-        return "Livro de titulo : " + titulo +
-                ", dos autores: " + autoresFormatados +
-                ", disponível no(s) idioma(s): " + idiomasFormatados +
-                ", com o numero de downloads: " + numeroDownloads + '.';
+        return "Livro de titulo " + titulo +
+                ", de autoria de " + autor +
+                ", disponível no idioma " + idioma.getIdioma() +
+                ", com o numero de downloads " + numeroDownloads + '.';
     }
 }

@@ -3,16 +3,15 @@ package dev.gabryel.literalura.service;
 import dev.gabryel.literalura.model.Idioma;
 import dev.gabryel.literalura.model.autor.Autor;
 import dev.gabryel.literalura.model.autor.AutorData;
-import dev.gabryel.literalura.model.livro.RespostaBuscaLivros;
 import dev.gabryel.literalura.model.livro.Livro;
 import dev.gabryel.literalura.model.livro.LivroData;
+import dev.gabryel.literalura.model.livro.RespostaBuscaLivros;
 import dev.gabryel.literalura.repository.AutorRepository;
 import dev.gabryel.literalura.repository.LivroRepository;
 import dev.gabryel.literalura.service.convertedados.ConversorDeDados;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,21 +33,8 @@ public class LivroService {
         this.conversorDeDados = conversorDeDados;
     }
 
-    private void cadastraLivro(Livro livro){
-        livroRepository.save(livro);
-    }
-
-    private LivroData getLivroData(String json) {
-        return conversorDeDados.obterDados(json, LivroData.class);
-    }
-
     private RespostaBuscaLivros obterListaLivrosData(String json){
         return conversorDeDados.obterDados(json, RespostaBuscaLivros.class);
-    }
-
-    private List<Autor> obterListaAutores(List<AutorData> autoresData){
-        return autoresData.stream().map(autor -> new Autor(autor.nome(), autor.anoNascimento(), autor.anoFalecimento()))
-                .collect(Collectors.toList());
     }
 
     private Autor buscaAutorCadastrado(Autor autor){
@@ -60,7 +46,7 @@ public class LivroService {
     }
 
     private Optional<Livro> buscaLivroPorNome(String titulo){
-        return livroRepository.findByTitulo(titulo);
+        return livroRepository.findByTituloContainingIgnoreCase(titulo);
     }
 
     @Transactional
@@ -68,7 +54,7 @@ public class LivroService {
         Optional<Livro> livroCadastrado = buscaLivroPorNome(nomeLivro);
 
         if (livroCadastrado.isPresent()){
-            System.out.println("Livro já está cadastrado.");
+            System.out.println("Este livro já está cadastrado.");
             System.out.println(livroCadastrado.get());
             return;
         }
@@ -81,16 +67,24 @@ public class LivroService {
         if (livroData.isPresent()){
             LivroData presentLivroData = livroData.get();
 
-            List<Autor> autoresVerificados = presentLivroData.autores().stream()
-                    .map(autorData -> new Autor(autorData.nome(), autorData.anoNascimento(), autorData.anoFalecimento()))
-                    .map(this::buscaAutorCadastrado)
-                    .collect(Collectors.toList());
+            Autor autor = presentLivroData.autores().stream()
+                    .findFirst()
+                    .map(autorData ->
+                        new Autor(
+                                autorData.nome(),
+                                autorData.anoNascimento(),
+                                autorData.anoFalecimento()))
+                    .orElse(new Autor("Autor Desconhecido", null, null));
 
-            List<Idioma> idiomas = presentLivroData.idiomas().stream()
+            autor = buscaAutorCadastrado(autor);
+
+            Idioma idioma = presentLivroData.idiomas().stream()
+                    .findFirst()
                     .map(Idioma::fromAbreviacao)
-                    .collect(Collectors.toList());
+                    .orElse(Idioma.OUTRO);
 
-            Livro novoLivro = new Livro(presentLivroData.titulo(), autoresVerificados, idiomas, presentLivroData.numeroDownloads());
+
+            Livro novoLivro = new Livro(presentLivroData.titulo(), autor, idioma, presentLivroData.numeroDownloads());
 
             System.out.println("Livro encontrado e cadastrado com sucesso!");
             System.out.println(novoLivro);
@@ -108,6 +102,6 @@ public class LivroService {
 
     public List<Livro> buscarLivrosDeDeterminadoIdioma(String abreviacaoIdioma){
         Idioma eIdioma = Idioma.fromAbreviacao(abreviacaoIdioma);
-        return livroRepository.findByIdiomasContaining(eIdioma);
+        return livroRepository.findByIdioma(eIdioma);
     }
 }

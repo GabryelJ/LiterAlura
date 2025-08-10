@@ -20,7 +20,7 @@ public class Autor {
 
     private Integer anoFalecimento;
 
-    @ManyToMany(mappedBy = "autores")
+    @OneToMany(mappedBy = "autor")
     private List<Livro> livros;
 
     public Autor() {
