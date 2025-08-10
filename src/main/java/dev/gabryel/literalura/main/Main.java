@@ -36,38 +36,44 @@ public class Main {
                 5 - Listar livros em um determinado idioma;
                                 
                 0 - Sair.
-               
+                               
                 Escolha o numero da opção desejada: """;
 
         while (option != 0) {
             System.out.printf(menu);
-            option = entrada.nextInt();
-            entrada.nextLine();
+            try {
+                option = entrada.nextInt();
+                entrada.nextLine();
 
-            switch (option) {
-                case 1:
-                    menuBuscarLivroPorTitulo();
-                    break;
-                case 2:
-                    menuListarLivrosRegistrados();
-                    break;
-                case 3:
-                    menuListarAutoresRegistrados();
-                    break;
-                case 4:
-                    menuListarAutoresVivosNoAno();
-                    break;
-                case 5:
-                    menuListarLivrosDeUmIdioma();
-                    break;
-                case 0:
-                    System.out.println("Saindo...");
-                    break;
-                default:
-                    System.out.println("Opção inválida");
+                switch (option) {
+                    case 1:
+                        menuBuscarLivroPorTitulo();
+                        break;
+                    case 2:
+                        menuListarLivrosRegistrados();
+                        break;
+                    case 3:
+                        menuListarAutoresRegistrados();
+                        break;
+                    case 4:
+                        menuListarAutoresVivosNoAno();
+                        break;
+                    case 5:
+                        menuListarLivrosDeUmIdioma();
+                        break;
+                    case 0:
+                        System.out.println("Saindo...");
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                }
+            }catch (InputMismatchException e) {
+                System.out.println("Opção inválida! Por favor, digite um número.");
+                entrada.nextLine();
             }
         }
     }
+
 
     private void menuBuscarLivroPorTitulo(){
         System.out.println("Insira o titulo do livro que deseja buscar: ");

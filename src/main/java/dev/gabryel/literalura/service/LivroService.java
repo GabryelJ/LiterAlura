@@ -44,7 +44,7 @@ public class LivroService {
     }
 
     private Optional<Livro> buscaLivroPorNome(String titulo){
-        return livroRepository.findByTituloContainingIgnoreCase(titulo);
+        return livroRepository.findByTituloIgnoreCase(titulo);
     }
 
     @Transactional
