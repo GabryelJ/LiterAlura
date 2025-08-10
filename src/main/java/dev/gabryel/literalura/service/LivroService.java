@@ -2,7 +2,6 @@ package dev.gabryel.literalura.service;
 
 import dev.gabryel.literalura.model.Idioma;
 import dev.gabryel.literalura.model.autor.Autor;
-import dev.gabryel.literalura.model.autor.AutorData;
 import dev.gabryel.literalura.model.livro.Livro;
 import dev.gabryel.literalura.model.livro.LivroData;
 import dev.gabryel.literalura.model.livro.RespostaBuscaLivros;
@@ -14,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class LivroService {
@@ -100,8 +98,7 @@ public class LivroService {
         return livroRepository.findAll();
     }
 
-    public List<Livro> buscarLivrosDeDeterminadoIdioma(String abreviacaoIdioma){
-        Idioma eIdioma = Idioma.fromAbreviacao(abreviacaoIdioma);
+    public List<Livro> buscarLivrosDeDeterminadoIdioma(Idioma eIdioma){
         return livroRepository.findByIdioma(eIdioma);
     }
 }

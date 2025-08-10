@@ -5,17 +5,13 @@ public enum Idioma {
     PORTUGUES("português", "pt"),
     FRANCES("francês", "fr"),
     ESPANHOL("espanhol", "es"),
-    OUTRO("outro");
+    OUTRO("outro", "outro");
 
     private String idioma;
     private String abreviacaoIdioma;
 
     Idioma(String idioma, String abreviacaoIdioma) {
         this.idioma = idioma;
-        this.abreviacaoIdioma = abreviacaoIdioma;
-    }
-
-    Idioma(String idioma ) {
         this.abreviacaoIdioma = abreviacaoIdioma;
     }
 
@@ -26,10 +22,6 @@ public enum Idioma {
             }
         }
         return OUTRO;
-    }
-
-    public String getAbreviacaoIdiomao() {
-        return abreviacaoIdioma;
     }
 
     public String getIdioma() {
