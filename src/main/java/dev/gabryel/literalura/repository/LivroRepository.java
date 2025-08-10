@@ -3,8 +3,6 @@ package dev.gabryel.literalura.repository;
 import dev.gabryel.literalura.model.Idioma;
 import dev.gabryel.literalura.model.livro.Livro;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -19,6 +19,6 @@ public class AutorService {
     }
 
     public List<Autor> buscarAutoresVivosNoAno(Integer ano){
-        return autorRepository.findAutoresVivosPorAno(ano);
+        return autorRepository.findByAnoNascimentoLessThanEqualAndAnoFalecimentoGreaterThanEqualOrAnoFalecimentoIsNull(ano, ano);
     }
 }
